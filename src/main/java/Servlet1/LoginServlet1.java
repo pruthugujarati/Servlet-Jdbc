@@ -23,7 +23,8 @@ import javax.servlet.http.HttpSession;
 		@WebInitParam(name="gmail",value="Pruthvi@gmail.com")
 })
 
-public class LoginServlet1 extends HttpServlet{
+public class LoginServlet1 extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException, ServletException
@@ -37,7 +38,6 @@ public class LoginServlet1 extends HttpServlet{
 		
 		PrintWriter out = res.getWriter();
 		
-		ServletContext con = getServletContext();
 		ServletConfig config = getServletConfig();
 		
 		String gmail= config.getInitParameter("gmail");
@@ -49,15 +49,9 @@ public class LoginServlet1 extends HttpServlet{
 //		String s7 = (String) con.getAttribute("answer");
 		
 		
-		
-		
-		
-		String url = "jdbc:mysql://localhost:3306/USERDB";
-		String user ="root";
-		String pass = "Pgujarati108@@";
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(url, user, pass);
+			ServletContext ctx= getServletContext();
+			Connection conn = (Connection) ctx.getAttribute("mycon");
 			
 			PreparedStatement ps = conn.prepareStatement("select password , lastname from users where username=?");
 			ps.setString(1, s2);
@@ -82,12 +76,13 @@ public class LoginServlet1 extends HttpServlet{
 				
 			}
 			else 
-		      {
+		       {
 				out.print("Enter correct information.....");
 				RequestDispatcher rd = req.getRequestDispatcher("LoginServlet1.jsp");
 				rd.include(req, res);
 		       }
 		}
+		
 		}
 		catch(Exception e)
 		{

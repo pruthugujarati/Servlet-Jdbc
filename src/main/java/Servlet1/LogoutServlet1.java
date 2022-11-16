@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 @WebServlet("/logoutservlet1")
 public class LogoutServlet1 extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -22,6 +23,9 @@ public class LogoutServlet1 extends HttpServlet{
 		res.addCookie(ck);
 		
 		//HttpSession- session.invalidate();
+		HttpSession session = req.getSession(false);
+		session.invalidate();
+		
 		out.print("<b>You are successfully logged out!!</b>");
 		req.getRequestDispatcher("index.jsp").include(req, res);
 	}

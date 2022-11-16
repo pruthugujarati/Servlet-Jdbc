@@ -10,12 +10,10 @@
 <h2>Login successfully done!!!</h2>
 <%
 String uname2 = request.getParameter("uname2");
-String url = "jdbc:mysql://localhost:3306/USERDB";
-String user ="root";
-String pass = "Pgujarati108@@";
+
 try {
-	Class.forName("com.mysql.cj.jdbc.Driver");
-	Connection conn = DriverManager.getConnection(url, user, pass);
+	ServletContext ctx= getServletContext();
+	Connection conn = (Connection) ctx.getAttribute("mycon");
 	
 	Statement st1 = conn.createStatement();
 
@@ -32,6 +30,7 @@ while(rs.next())
 		con.setAttribute("Ans", ans);
 	}
 }
+
 }
 catch(Exception e)
 {

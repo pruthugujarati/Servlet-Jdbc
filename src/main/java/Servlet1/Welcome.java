@@ -57,15 +57,24 @@ public class Welcome extends HttpServlet {
 			//HttpSession
 			HttpSession session = req.getSession(false);
 			String n = (String) session.getAttribute("lastname");
+			
 			out.print("<br>Your last name : "+n);
 			
 			//Cookie
 			out.print("<br>Your cookie : "+ name);
 			out.print("<h3>Hello "+name+"....</h3>");
+			
+			int t =(int) con.getAttribute("totaluser");
+			int c = (int) con.getAttribute("currentuser");
+			
+			out.print("Total users = "+t);
+			out.print(" Current user = "+c);
+			
 			req.getRequestDispatcher("Welcome.jsp").include(req, res);
 
 			//res.sendRedirect("Welcome.jsp");
-		}
+			
+			}
 			else
 			{
 				out.print("<h3>Please enter correct answer....</h3>");
@@ -77,7 +86,7 @@ public class Welcome extends HttpServlet {
 			out.print("<h3>Please Login First....</h3>");
 			req.getRequestDispatcher("LoginServlet1.jsp").include(req, res);
 		}
-		out.close();
+		
 		
 	}
 }
